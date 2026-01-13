@@ -1,16 +1,10 @@
 from flask import Flask
-import socket
 
-app = Flask(name)
+app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World"
+    return "Hello from Docker!"
 
-@app.route("/hostname")
-def hostname():
-    return f"Hostname: {socket.gethostname()}"
-
-if name == "main":
-    # Слушаме на порт 80, достъпен отвсякъде (0.0.0.0)
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
