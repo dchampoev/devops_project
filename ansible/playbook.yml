@@ -1,0 +1,23 @@
+---
+- name: Deploy Docker App
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Run container
+      docker_container:
+        name: my-python-app
+        image: ghcr.io/dchampoev/mydevopsproject:latest
+        state: started
+        restart_policy: always
+        ports:
